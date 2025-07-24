@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" 
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 
+        http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+    
+    <!-- 主页 -->
+    <url>
+        <loc>https://yourusername.github.io/biomed123/</loc>
+        <lastmod>2024-01-01</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>1.0</priority>
+    </url>
+    
+    <!-- 医学数据库分类 -->
+    <url>
+        <loc>https://yourusername.github.io/biomed123/#medical-databases</loc>
+        <lastmod>2024-01-01</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <!-- 生物信息学工具分类 -->
+    <url>
+        <loc>https://yourusername.github.io/biomed123/#bioinformatics-tools</loc>
+        <lastmod>2024-01-01</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <!-- 医学期刊分类 -->
+    <url>
+        <loc>https://yourusername.github.io/biomed123/#medical-journals</loc>
+        <lastmod>2024-01-01</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <!-- 临床试验分类 -->
+    <url>
+        <loc>https://yourusername.github.io/biomed123/#clinical-trials</loc>
+        <lastmod>2024-01-01</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    
+    <!-- 生物技术公司分类 -->
+    <url>
+        <loc>https://yourusername.github.io/biomed123/#biotech-companies</loc>
+        <lastmod>2024-01-01</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    
+    <!-- 医学教育分类 -->
+    <url>
+        <loc>https://yourusername.github.io/biomed123/#medical-education</loc>
+        <lastmod>2024-01-01</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    
+    <!-- 医学影像分类 -->
+    <url>
+        <loc>https://yourusername.github.io/biomed123/#medical-imaging</loc>
+        <lastmod>2024-01-01</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    
+    <!-- 药物信息分类 -->
+    <url>
+        <loc>https://yourusername.github.io/biomed123/#drug-information</loc>
+        <lastmod>2024-01-01</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    
+</urlset> 

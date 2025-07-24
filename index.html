@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="生物医学导航网站 - 提供最全面的生物医学、生物信息学、医学研究资源导航和工具集合">
+    <meta name="keywords" content="生物医学,生物信息学,医学研究,PubMed,NCBI,医学期刊,生物技术,临床试验">
+    <meta name="author" content="BioMed Navigator">
+    <title>生物医学导航 - BioMed Navigator | 专业的生物医学资源导航网站</title>
+    
+    <!-- Element UI CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    
+    <!-- Google Adsense准备 -->
+    <meta name="google-adsense-account" content="ca-pub-XXXXXXXXXXXXXXXXX">
+</head>
+<body>
+    <div id="app">
+        <!-- 顶部导航栏 -->
+        <el-header class="header">
+            <el-row type="flex" justify="space-between" align="middle">
+                <el-col :span="6">
+                    <div class="logo">
+                        <i class="el-icon-s-data"></i>
+                        <span class="logo-text">BioMed Navigator</span>
+                    </div>
+                </el-col>
+                <el-col :span="12">
+                    <el-input 
+                        v-model="searchQuery" 
+                        placeholder="搜索生物医学资源..." 
+                        class="search-input"
+                        @keyup.enter.native="searchSites">
+                        <el-button slot="append" icon="el-icon-search" @click="searchSites"></el-button>
+                    </el-input>
+                </el-col>
+                <el-col :span="6" class="nav-menu">
+                    <el-menu mode="horizontal" default-active="1" class="nav-menu-items">
+                        <el-menu-item index="1">首页</el-menu-item>
+                        <el-menu-item index="2">分类</el-menu-item>
+                        <el-menu-item index="3">关于</el-menu-item>
+                    </el-menu>
+                </el-col>
+            </el-row>
+        </el-header>
+
+        <!-- 主要内容区 -->
+        <el-main class="main-content">
+            <!-- 英雄区域 -->
+            <div class="hero-section">
+                <div class="hero-content">
+                    <h1>专业的生物医学资源导航</h1>
+                    <p>汇集全球最权威的生物医学数据库、期刊、工具和研究资源</p>
+                    <el-button type="primary" size="large" @click="scrollToCategories">
+                        <i class="el-icon-arrow-down"></i>
+                        探索资源
+                    </el-button>
+                </div>
+                <div class="hero-image">
+                    <img :src="heroImage" alt="生物医学研究" />
+                </div>
+            </div>
+
+            <!-- 广告位 1 -->
+            <div class="ad-space ad-banner">
+                <p>广告位</p>
+            </div>
+
+            <!-- 资源分类区域 -->
+            <div class="categories-section" id="categories">
+                <h2 class="section-title">资源分类</h2>
+                <el-row :gutter="20">
+                    <el-col :xs="24" :sm="12" :md="8" :lg="6" v-for="category in categories" :key="category.id">
+                        <el-card class="category-card" shadow="hover" @click.native="showCategoryDetail(category)">
+                            <div class="category-icon">
+                                <i :class="category.icon"></i>
+                            </div>
+                            <h3>{{ category.name }}</h3>
+                            <p>{{ category.description }}</p>
+                            <div class="category-count">{{ category.sites.length }} 个资源</div>
+                        </el-card>
+                    </el-col>
+                </el-row>
+            </div>
+
+            <!-- 热门资源 -->
+            <div class="popular-section">
+                <h2 class="section-title">热门资源</h2>
+                <el-row :gutter="20">
+                    <el-col :xs="24" :sm="12" :md="8" v-for="site in popularSites" :key="site.id">
+                        <el-card class="site-card" shadow="hover">
+                            <div class="site-header">
+                                <img :src="site.logo" :alt="site.name" class="site-logo" />
+                                <div class="site-info">
+                                    <h4>{{ site.name }}</h4>
+                                    <el-tag :type="site.categoryType" size="mini">{{ site.category }}</el-tag>
+                                </div>
+                            </div>
+                            <p class="site-description">{{ site.description }}</p>
+                            <div class="site-actions">
+                                <el-button type="primary" size="small" @click="visitSite(site.url)">
+                                    <i class="el-icon-link"></i>
+                                    访问网站
+                                </el-button>
+                                <el-button type="text" size="small" @click="addToFavorites(site)">
+                                    <i class="el-icon-star-off"></i>
+                                    收藏
+                                </el-button>
+                            </div>
+                        </el-card>
+                    </el-col>
+                </el-row>
+            </div>
+
+            <!-- 广告位 2 -->
+            <div class="ad-space ad-sidebar">
+                <p>侧边广告位</p>
+            </div>
+        </el-main>
+
+        <!-- 底部 -->
+        <el-footer class="footer">
+            <el-row>
+                <el-col :span="8">
+                    <h4>关于我们</h4>
+                    <p>BioMed Navigator 致力于为生物医学研究者提供最全面、最便捷的资源导航服务。</p>
+                </el-col>
+                <el-col :span="8">
+                    <h4>快速链接</h4>
+                    <ul class="footer-links">
+                        <li><a href="#pubmed">PubMed</a></li>
+                        <li><a href="#ncbi">NCBI</a></li>
+                        <li><a href="#uniprot">UniProt</a></li>
+                        <li><a href="#ensembl">Ensembl</a></li>
+                    </ul>
+                </el-col>
+                <el-col :span="8">
+                    <h4>联系我们</h4>
+                    <p>Email: contact@biomednavigator.com</p>
+                    <p>© 2024 BioMed Navigator. All rights reserved.</p>
+                </el-col>
+            </el-row>
+        </el-footer>
+
+        <!-- 分类详情对话框 -->
+        <el-dialog 
+            :title="selectedCategory.name" 
+            :visible.sync="categoryDialogVisible"
+            width="80%"
+            :before-close="closeCategoryDialog">
+            <div class="category-detail">
+                <p class="category-description">{{ selectedCategory.description }}</p>
+                <el-row :gutter="20">
+                    <el-col :xs="24" :sm="12" :md="8" v-for="site in selectedCategory.sites" :key="site.id">
+                        <el-card class="site-card" shadow="hover">
+                            <div class="site-header">
+                                <img :src="site.logo" :alt="site.name" class="site-logo" />
+                                <div class="site-info">
+                                    <h4>{{ site.name }}</h4>
+                                    <el-rate v-model="site.rating" disabled show-score></el-rate>
+                                </div>
+                            </div>
+                            <p class="site-description">{{ site.description }}</p>
+                            <div class="site-actions">
+                                <el-button type="primary" size="small" @click="visitSite(site.url)">
+                                    <i class="el-icon-link"></i>
+                                    访问网站
+                                </el-button>
+                            </div>
+                        </el-card>
+                    </el-col>
+                </el-row>
+            </div>
+        </el-dialog>
+    </div>
+
+    <!-- Vue.js -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+    <!-- Element UI JS -->
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+    <!-- Axios for API calls -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <!-- Main JavaScript -->
+    <script src="js/app.js"></script>
+</body>
+</html> 
