@@ -3,13 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="生物医学导航网站 - 提供最全面的生物医学、生物信息学、医学研究资源导航和工具集合">
-    <meta name="keywords" content="生物医学,生物信息学,医学研究,PubMed,NCBI,医学期刊,生物技术,临床试验">
+    <meta name="description" content="生物医学导航网站 - 世界顶级医院、大学新闻，生物医学资源导航">
+    <meta name="keywords" content="生物医学,医院新闻,大学新闻,生物系,医学系,健康系,生物计算,PubMed,NCBI">
     <meta name="author" content="BioMed Navigator">
-    <title>生物医学导航 - BioMed Navigator | 专业的生物医学资源导航网站</title>
-    
-    <!-- Element UI CSS -->
-    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <title>生物医学导航 - 世界顶级医院大学新闻导航</title>
     
     <!-- Custom CSS -->
     <link rel="stylesheet" href="css/style.css">
@@ -21,172 +18,389 @@
     <meta name="google-adsense-account" content="ca-pub-XXXXXXXXXXXXXXXXX">
 </head>
 <body>
-    <div id="app">
-        <!-- 顶部导航栏 -->
-        <el-header class="header">
-            <el-row type="flex" justify="space-between" align="middle">
-                <el-col :span="6">
-                    <div class="logo">
-                        <i class="el-icon-s-data"></i>
-                        <span class="logo-text">BioMed Navigator</span>
-                    </div>
-                </el-col>
-                <el-col :span="12">
-                    <el-input 
-                        v-model="searchQuery" 
-                        placeholder="搜索生物医学资源..." 
-                        class="search-input"
-                        @keyup.enter.native="searchSites">
-                        <el-button slot="append" icon="el-icon-search" @click="searchSites"></el-button>
-                    </el-input>
-                </el-col>
-                <el-col :span="6" class="nav-menu">
-                    <el-menu mode="horizontal" default-active="1" class="nav-menu-items">
-                        <el-menu-item index="1">首页</el-menu-item>
-                        <el-menu-item index="2">分类</el-menu-item>
-                        <el-menu-item index="3">关于</el-menu-item>
-                    </el-menu>
-                </el-col>
-            </el-row>
-        </el-header>
-
-        <!-- 主要内容区 -->
-        <el-main class="main-content">
-            <!-- 英雄区域 -->
-            <div class="hero-section">
-                <div class="hero-content">
-                    <h1>专业的生物医学资源导航</h1>
-                    <p>汇集全球最权威的生物医学数据库、期刊、工具和研究资源</p>
-                    <el-button type="primary" size="large" @click="scrollToCategories">
-                        <i class="el-icon-arrow-down"></i>
-                        探索资源
-                    </el-button>
+    <!-- 顶部搜索区域 -->
+    <div class="top-section">
+        <div class="container">
+            <!-- Logo区域 -->
+            <div class="logo-section">
+                <h1 class="site-logo">生物医学导航</h1>
+                <p class="site-tagline">您的专业生物医学资源入口</p>
+            </div>
+            
+            <!-- 搜索框 -->
+            <div class="search-section">
+                <div class="search-box">
+                    <input type="text" id="searchInput" placeholder="搜索生物医学资源、医院、大学..." />
+                    <button type="button" id="searchBtn">搜索</button>
                 </div>
-                <div class="hero-image">
-                    <img :src="heroImage" alt="生物医学研究" />
+                <div class="search-engines">
+                    <a href="https://pubmed.ncbi.nlm.nih.gov/" target="_blank">PubMed</a>
+                    <a href="https://scholar.google.com/" target="_blank">Google Scholar</a>
+                    <a href="https://www.ncbi.nlm.nih.gov/" target="_blank">NCBI</a>
+                    <a href="https://www.who.int/" target="_blank">WHO</a>
                 </div>
             </div>
-
-            <!-- 广告位 1 -->
-            <div class="ad-space ad-banner">
-                <p>广告位</p>
-            </div>
-
-            <!-- 资源分类区域 -->
-            <div class="categories-section" id="categories">
-                <h2 class="section-title">资源分类</h2>
-                <el-row :gutter="20">
-                    <el-col :xs="24" :sm="12" :md="8" :lg="6" v-for="category in categories" :key="category.id">
-                        <el-card class="category-card" shadow="hover" @click.native="showCategoryDetail(category)">
-                            <div class="category-icon">
-                                <i :class="category.icon"></i>
-                            </div>
-                            <h3>{{ category.name }}</h3>
-                            <p>{{ category.description }}</p>
-                            <div class="category-count">{{ category.sites.length }} 个资源</div>
-                        </el-card>
-                    </el-col>
-                </el-row>
-            </div>
-
-            <!-- 热门资源 -->
-            <div class="popular-section">
-                <h2 class="section-title">热门资源</h2>
-                <el-row :gutter="20">
-                    <el-col :xs="24" :sm="12" :md="8" v-for="site in popularSites" :key="site.id">
-                        <el-card class="site-card" shadow="hover">
-                            <div class="site-header">
-                                <img :src="site.logo" :alt="site.name" class="site-logo" />
-                                <div class="site-info">
-                                    <h4>{{ site.name }}</h4>
-                                    <el-tag :type="site.categoryType" size="mini">{{ site.category }}</el-tag>
-                                </div>
-                            </div>
-                            <p class="site-description">{{ site.description }}</p>
-                            <div class="site-actions">
-                                <el-button type="primary" size="small" @click="visitSite(site.url)">
-                                    <i class="el-icon-link"></i>
-                                    访问网站
-                                </el-button>
-                                <el-button type="text" size="small" @click="addToFavorites(site)">
-                                    <i class="el-icon-star-off"></i>
-                                    收藏
-                                </el-button>
-                            </div>
-                        </el-card>
-                    </el-col>
-                </el-row>
-            </div>
-
-            <!-- 广告位 2 -->
-            <div class="ad-space ad-sidebar">
-                <p>侧边广告位</p>
-            </div>
-        </el-main>
-
-        <!-- 底部 -->
-        <el-footer class="footer">
-            <el-row>
-                <el-col :span="8">
-                    <h4>关于我们</h4>
-                    <p>BioMed Navigator 致力于为生物医学研究者提供最全面、最便捷的资源导航服务。</p>
-                </el-col>
-                <el-col :span="8">
-                    <h4>快速链接</h4>
-                    <ul class="footer-links">
-                        <li><a href="#pubmed">PubMed</a></li>
-                        <li><a href="#ncbi">NCBI</a></li>
-                        <li><a href="#uniprot">UniProt</a></li>
-                        <li><a href="#ensembl">Ensembl</a></li>
-                    </ul>
-                </el-col>
-                <el-col :span="8">
-                    <h4>联系我们</h4>
-                    <p>Email: contact@biomednavigator.com</p>
-                    <p>© 2024 BioMed Navigator. All rights reserved.</p>
-                </el-col>
-            </el-row>
-        </el-footer>
-
-        <!-- 分类详情对话框 -->
-        <el-dialog 
-            :title="selectedCategory.name" 
-            :visible.sync="categoryDialogVisible"
-            width="80%"
-            :before-close="closeCategoryDialog">
-            <div class="category-detail">
-                <p class="category-description">{{ selectedCategory.description }}</p>
-                <el-row :gutter="20">
-                    <el-col :xs="24" :sm="12" :md="8" v-for="site in selectedCategory.sites" :key="site.id">
-                        <el-card class="site-card" shadow="hover">
-                            <div class="site-header">
-                                <img :src="site.logo" :alt="site.name" class="site-logo" />
-                                <div class="site-info">
-                                    <h4>{{ site.name }}</h4>
-                                    <el-rate v-model="site.rating" disabled show-score></el-rate>
-                                </div>
-                            </div>
-                            <p class="site-description">{{ site.description }}</p>
-                            <div class="site-actions">
-                                <el-button type="primary" size="small" @click="visitSite(site.url)">
-                                    <i class="el-icon-link"></i>
-                                    访问网站
-                                </el-button>
-                            </div>
-                        </el-card>
-                    </el-col>
-                </el-row>
-            </div>
-        </el-dialog>
+        </div>
     </div>
 
-    <!-- Vue.js -->
-    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
-    <!-- Element UI JS -->
-    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
-    <!-- Axios for API calls -->
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <!-- Main JavaScript -->
+    <!-- 主要导航内容区域 -->
+    <div class="main-content">
+        <div class="container">
+            
+            <!-- 医院新闻区块 -->
+            <div class="nav-section">
+                <h2 class="section-title">
+                    <span class="title-text">世界顶级医院新闻</span>
+                    <a href="#" class="more-link">更多 &gt;</a>
+                </h2>
+                <div class="links-grid">
+                    <div class="links-row">
+                        <a href="https://www.mayoclinic.org/news" target="_blank" class="nav-link">
+                            <span class="link-icon">🏥</span>
+                            <span class="link-text">Mayo Clinic</span>
+                        </a>
+                        <a href="https://www.clevelandclinic.org/news" target="_blank" class="nav-link">
+                            <span class="link-icon">🏥</span>
+                            <span class="link-text">Cleveland Clinic</span>
+                        </a>
+                        <a href="https://www.hopkinsmedicine.org/news" target="_blank" class="nav-link">
+                            <span class="link-icon">🏥</span>
+                            <span class="link-text">Johns Hopkins</span>
+                        </a>
+                        <a href="https://www.massgeneral.org/news" target="_blank" class="nav-link">
+                            <span class="link-icon">🏥</span>
+                            <span class="link-text">Mass General</span>
+                        </a>
+                        <a href="https://www.uclahealth.org/news" target="_blank" class="nav-link">
+                            <span class="link-icon">🏥</span>
+                            <span class="link-text">UCLA Health</span>
+                        </a>
+                    </div>
+                    <div class="links-row">
+                        <a href="https://www.nyu.edu/about/news-publications/news.html" target="_blank" class="nav-link">
+                            <span class="link-icon">🏥</span>
+                            <span class="link-text">NYU Langone</span>
+                        </a>
+                        <a href="https://www.cedars-sinai.org/newsroom.html" target="_blank" class="nav-link">
+                            <span class="link-icon">🏥</span>
+                            <span class="link-text">Cedars-Sinai</span>
+                        </a>
+                        <a href="https://www.mountsinai.org/about/newsroom" target="_blank" class="nav-link">
+                            <span class="link-icon">🏥</span>
+                            <span class="link-text">Mount Sinai</span>
+                        </a>
+                        <a href="https://www.rush.edu/news" target="_blank" class="nav-link">
+                            <span class="link-icon">🏥</span>
+                            <span class="link-text">Rush Medical</span>
+                        </a>
+                        <a href="https://www.brighamandwomens.org/about-bwh/newsroom" target="_blank" class="nav-link">
+                            <span class="link-icon">🏥</span>
+                            <span class="link-text">Brigham Women's</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 世界顶级大学新闻区块 -->
+            <div class="nav-section">
+                <h2 class="section-title">
+                    <span class="title-text">世界顶级大学新闻</span>
+                    <a href="#" class="more-link">更多 &gt;</a>
+                </h2>
+                <div class="links-grid">
+                    <div class="links-row">
+                        <a href="https://news.harvard.edu/topic/health-medicine/" target="_blank" class="nav-link">
+                            <span class="link-icon">🎓</span>
+                            <span class="link-text">Harvard Medicine</span>
+                        </a>
+                        <a href="https://med.stanford.edu/news.html" target="_blank" class="nav-link">
+                            <span class="link-icon">🎓</span>
+                            <span class="link-text">Stanford Medicine</span>
+                        </a>
+                        <a href="https://news.mit.edu/topic/health" target="_blank" class="nav-link">
+                            <span class="link-icon">🎓</span>
+                            <span class="link-text">MIT Health</span>
+                        </a>
+                        <a href="https://www.ox.ac.uk/news-and-events/find-news?news_type%5B0%5D=97&" target="_blank" class="nav-link">
+                            <span class="link-icon">🎓</span>
+                            <span class="link-text">Oxford Medicine</span>
+                        </a>
+                        <a href="https://www.cam.ac.uk/news?ucam-topic=472" target="_blank" class="nav-link">
+                            <span class="link-icon">🎓</span>
+                            <span class="link-text">Cambridge Medicine</span>
+                        </a>
+                    </div>
+                    <div class="links-row">
+                        <a href="https://www.yale.edu/news?field_news_classification_target_id%5B0%5D=5631" target="_blank" class="nav-link">
+                            <span class="link-icon">🎓</span>
+                            <span class="link-text">Yale Medicine</span>
+                        </a>
+                        <a href="https://www.caltech.edu/news?utf8=%E2%9C%93&search_api_views_fulltext=medicine" target="_blank" class="nav-link">
+                            <span class="link-icon">🎓</span>
+                            <span class="link-text">Caltech Medicine</span>
+                        </a>
+                        <a href="https://www.upenn.edu/news?field_news_tag_target_id=2271" target="_blank" class="nav-link">
+                            <span class="link-icon">🎓</span>
+                            <span class="link-text">UPenn Medicine</span>
+                        </a>
+                        <a href="https://www.columbia.edu/content/medicine.html" target="_blank" class="nav-link">
+                            <span class="link-icon">🎓</span>
+                            <span class="link-text">Columbia Medicine</span>
+                        </a>
+                        <a href="https://www.uchicago.edu/news?research_area=health-medicine" target="_blank" class="nav-link">
+                            <span class="link-icon">🎓</span>
+                            <span class="link-text">UChicago Medicine</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 生物医学院系新闻区块 -->
+            <div class="nav-section">
+                <h2 class="section-title">
+                    <span class="title-text">生物医学院系新闻</span>
+                    <a href="#" class="more-link">更多 &gt;</a>
+                </h2>
+                <div class="links-grid">
+                    <div class="links-row">
+                        <a href="https://www.harvard.edu/news/?field_news_type%5B%5D=1236&field_tag_target_id=All&field_news_tag_target_id=All" target="_blank" class="nav-link">
+                            <span class="link-icon">🧬</span>
+                            <span class="link-text">哈佛生物系</span>
+                        </a>
+                        <a href="https://biosciences.stanford.edu/news/" target="_blank" class="nav-link">
+                            <span class="link-icon">🧬</span>
+                            <span class="link-text">斯坦福生物系</span>
+                        </a>
+                        <a href="https://biology.mit.edu/news/" target="_blank" class="nav-link">
+                            <span class="link-icon">🧬</span>
+                            <span class="link-text">MIT生物系</span>
+                        </a>
+                        <a href="https://www.biology.ox.ac.uk/news" target="_blank" class="nav-link">
+                            <span class="link-icon">🧬</span>
+                            <span class="link-text">牛津生物系</span>
+                        </a>
+                        <a href="https://www.biology.cam.ac.uk/news" target="_blank" class="nav-link">
+                            <span class="link-icon">🧬</span>
+                            <span class="link-text">剑桥生物系</span>
+                        </a>
+                    </div>
+                    <div class="links-row">
+                        <a href="https://medicine.yale.edu/news/" target="_blank" class="nav-link">
+                            <span class="link-icon">⚕️</span>
+                            <span class="link-text">耶鲁医学院</span>
+                        </a>
+                        <a href="https://www.hsph.harvard.edu/news/" target="_blank" class="nav-link">
+                            <span class="link-icon">🏥</span>
+                            <span class="link-text">哈佛公共卫生</span>
+                        </a>
+                        <a href="https://www.cs.cmu.edu/news" target="_blank" class="nav-link">
+                            <span class="link-icon">💻</span>
+                            <span class="link-text">CMU计算生物</span>
+                        </a>
+                        <a href="https://www.washington.edu/news/topic/health-sciences/" target="_blank" class="nav-link">
+                            <span class="link-icon">🏥</span>
+                            <span class="link-text">华盛顿健康科学</span>
+                        </a>
+                        <a href="https://compbio.berkeley.edu/news" target="_blank" class="nav-link">
+                            <span class="link-icon">💻</span>
+                            <span class="link-text">伯克利计算生物</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 生物医学数据库区块 -->
+            <div class="nav-section">
+                <h2 class="section-title">
+                    <span class="title-text">生物医学数据库</span>
+                    <a href="#" class="more-link">更多 &gt;</a>
+                </h2>
+                <div class="links-grid">
+                    <div class="links-row">
+                        <a href="https://pubmed.ncbi.nlm.nih.gov/" target="_blank" class="nav-link">
+                            <span class="link-icon">📚</span>
+                            <span class="link-text">PubMed</span>
+                        </a>
+                        <a href="https://www.ncbi.nlm.nih.gov/" target="_blank" class="nav-link">
+                            <span class="link-icon">🧬</span>
+                            <span class="link-text">NCBI</span>
+                        </a>
+                        <a href="https://www.uniprot.org/" target="_blank" class="nav-link">
+                            <span class="link-icon">🧪</span>
+                            <span class="link-text">UniProt</span>
+                        </a>
+                        <a href="https://www.ensembl.org/" target="_blank" class="nav-link">
+                            <span class="link-icon">📊</span>
+                            <span class="link-text">Ensembl</span>
+                        </a>
+                        <a href="https://www.ebi.ac.uk/" target="_blank" class="nav-link">
+                            <span class="link-icon">🔬</span>
+                            <span class="link-text">EBI</span>
+                        </a>
+                    </div>
+                    <div class="links-row">
+                        <a href="https://www.genome.gov/" target="_blank" class="nav-link">
+                            <span class="link-icon">🧬</span>
+                            <span class="link-text">Genome.gov</span>
+                        </a>
+                        <a href="https://www.rcsb.org/" target="_blank" class="nav-link">
+                            <span class="link-icon">⚛️</span>
+                            <span class="link-text">Protein Data Bank</span>
+                        </a>
+                        <a href="https://www.kegg.jp/" target="_blank" class="nav-link">
+                            <span class="link-icon">🔗</span>
+                            <span class="link-text">KEGG</span>
+                        </a>
+                        <a href="https://www.reactome.org/" target="_blank" class="nav-link">
+                            <span class="link-icon">🔄</span>
+                            <span class="link-text">Reactome</span>
+                        </a>
+                        <a href="https://www.genecards.org/" target="_blank" class="nav-link">
+                            <span class="link-icon">🎴</span>
+                            <span class="link-text">GeneCards</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 医学期刊区块 -->
+            <div class="nav-section">
+                <h2 class="section-title">
+                    <span class="title-text">顶级医学期刊</span>
+                    <a href="#" class="more-link">更多 &gt;</a>
+                </h2>
+                <div class="links-grid">
+                    <div class="links-row">
+                        <a href="https://www.nature.com/nm/" target="_blank" class="nav-link">
+                            <span class="link-icon">📰</span>
+                            <span class="link-text">Nature Medicine</span>
+                        </a>
+                        <a href="https://www.nejm.org/" target="_blank" class="nav-link">
+                            <span class="link-icon">📰</span>
+                            <span class="link-text">NEJM</span>
+                        </a>
+                        <a href="https://www.thelancet.com/" target="_blank" class="nav-link">
+                            <span class="link-icon">📰</span>
+                            <span class="link-text">The Lancet</span>
+                        </a>
+                        <a href="https://www.cell.com/" target="_blank" class="nav-link">
+                            <span class="link-icon">📰</span>
+                            <span class="link-text">Cell</span>
+                        </a>
+                        <a href="https://www.science.org/" target="_blank" class="nav-link">
+                            <span class="link-icon">📰</span>
+                            <span class="link-text">Science</span>
+                        </a>
+                    </div>
+                    <div class="links-row">
+                        <a href="https://jamanetwork.com/" target="_blank" class="nav-link">
+                            <span class="link-icon">📰</span>
+                            <span class="link-text">JAMA</span>
+                        </a>
+                        <a href="https://www.bmj.com/" target="_blank" class="nav-link">
+                            <span class="link-icon">📰</span>
+                            <span class="link-text">BMJ</span>
+                        </a>
+                        <a href="https://journals.plos.org/plosmedicine/" target="_blank" class="nav-link">
+                            <span class="link-icon">📰</span>
+                            <span class="link-text">PLOS Medicine</span>
+                        </a>
+                        <a href="https://www.nature.com/ng/" target="_blank" class="nav-link">
+                            <span class="link-icon">📰</span>
+                            <span class="link-text">Nature Genetics</span>
+                        </a>
+                        <a href="https://www.nature.com/nbt/" target="_blank" class="nav-link">
+                            <span class="link-icon">📰</span>
+                            <span class="link-text">Nature Biotech</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 生物信息学工具区块 -->
+            <div class="nav-section">
+                <h2 class="section-title">
+                    <span class="title-text">生物信息学工具</span>
+                    <a href="#" class="more-link">更多 &gt;</a>
+                </h2>
+                <div class="links-grid">
+                    <div class="links-row">
+                        <a href="https://blast.ncbi.nlm.nih.gov/Blast.cgi" target="_blank" class="nav-link">
+                            <span class="link-icon">🔍</span>
+                            <span class="link-text">BLAST</span>
+                        </a>
+                        <a href="https://www.bioinformatics.org/" target="_blank" class="nav-link">
+                            <span class="link-icon">💻</span>
+                            <span class="link-text">Bioinformatics.org</span>
+                        </a>
+                        <a href="https://galaxy.org/" target="_blank" class="nav-link">
+                            <span class="link-icon">🌌</span>
+                            <span class="link-text">Galaxy</span>
+                        </a>
+                        <a href="https://www.r-project.org/" target="_blank" class="nav-link">
+                            <span class="link-icon">📊</span>
+                            <span class="link-text">R Project</span>
+                        </a>
+                        <a href="https://bioconductor.org/" target="_blank" class="nav-link">
+                            <span class="link-icon">🧬</span>
+                            <span class="link-text">Bioconductor</span>
+                        </a>
+                    </div>
+                    <div class="links-row">
+                        <a href="https://cytoscape.org/" target="_blank" class="nav-link">
+                            <span class="link-icon">🕸️</span>
+                            <span class="link-text">Cytoscape</span>
+                        </a>
+                        <a href="https://pymol.org/" target="_blank" class="nav-link">
+                            <span class="link-icon">⚛️</span>
+                            <span class="link-text">PyMOL</span>
+                        </a>
+                        <a href="https://www.ensembl.org/Tools/" target="_blank" class="nav-link">
+                            <span class="link-icon">🔧</span>
+                            <span class="link-text">Ensembl工具</span>
+                        </a>
+                        <a href="https://string-db.org/" target="_blank" class="nav-link">
+                            <span class="link-icon">🔗</span>
+                            <span class="link-text">STRING</span>
+                        </a>
+                        <a href="https://david.ncifcrf.gov/" target="_blank" class="nav-link">
+                            <span class="link-icon">📋</span>
+                            <span class="link-text">DAVID</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- 底部信息 -->
+    <div class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>关于我们</h4>
+                    <p>生物医学导航致力于为研究者提供最全面的生物医学资源导航服务。</p>
+                </div>
+                <div class="footer-section">
+                    <h4>快速访问</h4>
+                    <div class="footer-links">
+                        <a href="https://pubmed.ncbi.nlm.nih.gov/" target="_blank">PubMed</a>
+                        <a href="https://www.ncbi.nlm.nih.gov/" target="_blank">NCBI</a>
+                        <a href="https://www.uniprot.org/" target="_blank">UniProt</a>
+                        <a href="https://www.ensembl.org/" target="_blank">Ensembl</a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>联系我们</h4>
+                    <p>Email: contact@biomednavigator.com</p>
+                    <p>© 2024 生物医学导航. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
     <script src="js/app.js"></script>
 </body>
 </html> 
