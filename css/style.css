@@ -10,7 +10,7 @@ body {
     font-size: 14px;
     line-height: 1.6;
     color: #333;
-    background-color: #f5f5f5;
+    background-color: #f0f9f0;
 }
 
 .container {
@@ -21,8 +21,8 @@ body {
 
 /* 顶部搜索区域 */
 .top-section {
-    background: #fff;
-    border-bottom: 1px solid #e8e8e8;
+    background: #fbfefb;
+    border-bottom: 1px solid #e0f0e0;
     padding: 20px 0;
 }
 
@@ -60,7 +60,7 @@ body {
 .search-box input {
     width: 400px;
     height: 40px;
-    border: 1px solid #e0e0e0;
+    border: 1px solid #d0e8d0;
     border-right: none;
     padding: 0 15px;
     font-size: 14px;
@@ -68,13 +68,13 @@ body {
 }
 
 .search-box input:focus {
-    border-color: #4285f4;
+    border-color: #2e7d2e;
 }
 
 .search-box button {
     width: 80px;
     height: 40px;
-    background: #4285f4;
+    background: #2e7d2e;
     color: white;
     border: none;
     cursor: pointer;
@@ -83,7 +83,7 @@ body {
 }
 
 .search-box button:hover {
-    background: #3367d6;
+    background: #1e5d1e;
 }
 
 /* 搜索引擎链接 */
@@ -94,7 +94,7 @@ body {
 }
 
 .search-engines a {
-    color: #4285f4;
+    color: #2e7d2e;
     text-decoration: none;
     font-size: 13px;
     padding: 5px 10px;
@@ -103,13 +103,13 @@ body {
 }
 
 .search-engines a:hover {
-    background: #f0f0f0;
+    background: #e8f5e8;
     text-decoration: underline;
 }
 
 /* 主要内容区域 */
 .main-content {
-    background: #fff;
+    background: #fbfefb;
     padding: 20px 0;
     min-height: 600px;
 }
@@ -117,7 +117,7 @@ body {
 /* 导航区块样式 */
 .nav-section {
     margin-bottom: 30px;
-    border-bottom: 1px solid #f0f0f0;
+    border-bottom: 1px solid #e8f5e8;
     padding-bottom: 20px;
 }
 
@@ -161,14 +161,14 @@ body {
 }
 
 .more-link:hover {
-    color: #4285f4;
+    color: #2e7d2e;
     text-decoration: underline;
 }
 
 /* 链接网格布局 */
 .links-grid {
-    background: #fafafa;
-    border: 1px solid #e8e8e8;
+    background: #f8fcf8;
+    border: 1px solid #e0f0e0;
     border-radius: 4px;
     padding: 15px;
 }
@@ -194,19 +194,19 @@ body {
     padding: 8px 12px;
     border-radius: 3px;
     transition: all 0.3s;
-    background: #fff;
-    border: 1px solid #e0e0e0;
+    background: #ffffff;
+    border: 1px solid #d0e8d0;
     min-width: 140px;
     font-size: 13px;
 }
 
 .nav-link:hover {
-    background: #f0f8ff;
-    border-color: #4285f4;
-    color: #4285f4;
+    background: #e8f5e8;
+    border-color: #2e7d2e;
+    color: #2e7d2e;
     text-decoration: none;
     transform: translateY(-1px);
-    box-shadow: 0 2px 4px rgba(66, 133, 244, 0.2);
+    box-shadow: 0 2px 4px rgba(46, 125, 46, 0.2);
 }
 
 .link-icon {
@@ -260,7 +260,7 @@ body {
 }
 
 .footer-links a:hover {
-    color: #4285f4;
+    color: #2e7d2e;
     text-decoration: underline;
 }
 
