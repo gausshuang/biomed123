@@ -1,4 +1,6 @@
-/* 重置和基础样式 */
+/* 生物医学导航网站样式 */
+/* 使用护眼的淡绿色主题 */
+
 * {
     margin: 0;
     padding: 0;
@@ -6,11 +8,11 @@
 }
 
 body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-    font-size: 14px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
     line-height: 1.6;
-    color: #333;
-    background-color: #f0f9f0;
+    color: #2c3e50;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    min-height: 100vh;
 }
 
 .container {
@@ -19,231 +21,465 @@ body {
     padding: 0 20px;
 }
 
-/* 顶部搜索区域 */
-.top-section {
-    background: #fbfefb;
-    border-bottom: 1px solid #e0f0e0;
+/* 用户身份选择横幅 */
+.user-identity-banner {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
     padding: 20px 0;
+    position: relative;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 }
 
-.logo-section {
-    text-align: center;
-    margin-bottom: 20px;
+.identity-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
 }
 
-.site-logo {
-    font-size: 32px;
-    font-weight: bold;
-    color: #2c3e50;
+.identity-text h3 {
+    font-size: 24px;
+    font-weight: 600;
     margin-bottom: 5px;
 }
 
-.site-tagline {
+.identity-text p {
+    font-size: 16px;
+    opacity: 0.9;
+}
+
+.identity-options {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.identity-btn {
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    color: white;
+    padding: 12px 20px;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.identity-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.5);
+    transform: translateY(-2px);
+}
+
+.identity-btn.selected {
+    background: rgba(255, 255, 255, 0.9);
+    color: #667eea;
+    border-color: white;
+}
+
+.identity-icon {
+    font-size: 18px;
+}
+
+.close-banner {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.3s ease;
+}
+
+.close-banner:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+/* 当前身份显示 */
+.current-identity {
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.identity-indicator {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 8px 15px;
+    border-radius: 20px;
     font-size: 14px;
-    color: #7f8c8d;
-    margin: 0;
+}
+
+.change-identity-btn {
+    background: none;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: white;
+    padding: 6px 12px;
+    border-radius: 15px;
+    cursor: pointer;
+    font-size: 12px;
+    transition: all 0.3s ease;
+}
+
+.change-identity-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.5);
+}
+
+/* 顶部搜索区域 */
+.top-section {
+    background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+    padding: 40px 0;
+    text-align: center;
+}
+
+.logo-section {
+    margin-bottom: 30px;
+}
+
+.site-logo {
+    font-size: 48px;
+    font-weight: 700;
+    color: #2c3e50;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.site-tagline {
+    font-size: 18px;
+    color: #34495e;
+    margin-bottom: 15px;
 }
 
 /* 搜索框样式 */
 .search-section {
-    text-align: center;
+    max-width: 600px;
+    margin: 0 auto;
 }
 
 .search-box {
-    display: inline-flex;
-    margin-bottom: 15px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    border-radius: 4px;
-    overflow: hidden;
+    display: flex;
+    background: white;
+    border-radius: 25px;
+    padding: 5px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    position: relative;
 }
 
-.search-box input {
-    width: 400px;
-    height: 40px;
-    border: 1px solid #d0e8d0;
-    border-right: none;
-    padding: 0 15px;
-    font-size: 14px;
+#searchInput {
+    flex: 1;
+    border: none;
+    padding: 15px 20px;
+    font-size: 16px;
+    border-radius: 20px;
     outline: none;
+    background: transparent;
 }
 
-.search-box input:focus {
-    border-color: #2e7d2e;
+.voice-search-btn {
+    background: none;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    font-size: 18px;
+    border-radius: 50%;
+    transition: background 0.3s ease;
+    margin-right: 5px;
 }
 
-.search-box button {
-    width: 80px;
-    height: 40px;
-    background: #2e7d2e;
+.voice-search-btn:hover {
+    background: rgba(0, 0, 0, 0.1);
+}
+
+#searchBtn {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
     border: none;
+    padding: 15px 30px;
+    border-radius: 20px;
     cursor: pointer;
-    font-size: 14px;
-    transition: background-color 0.3s;
+    font-size: 16px;
+    font-weight: 600;
+    transition: all 0.3s ease;
 }
 
-.search-box button:hover {
-    background: #1e5d1e;
+#searchBtn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
 }
 
-/* 搜索引擎链接 */
 .search-engines {
     display: flex;
     justify-content: center;
     gap: 20px;
+    flex-wrap: wrap;
 }
 
 .search-engines a {
-    color: #2e7d2e;
+    color: #667eea;
     text-decoration: none;
-    font-size: 13px;
-    padding: 5px 10px;
-    border-radius: 3px;
-    transition: background-color 0.3s;
+    font-weight: 500;
+    padding: 8px 16px;
+    border-radius: 15px;
+    transition: all 0.3s ease;
+    border: 1px solid transparent;
 }
 
 .search-engines a:hover {
-    background: #e8f5e8;
-    text-decoration: underline;
+    background: rgba(102, 126, 234, 0.1);
+    border-color: rgba(102, 126, 234, 0.3);
+}
+
+/* 个性化推荐区域 */
+.personalized-section {
+    background: rgba(255, 255, 255, 0.8);
+    padding: 30px 0;
+    margin-bottom: 20px;
+    border-radius: 15px;
+    margin: 0 20px 20px 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+.recommendation-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.recommendation-card {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+}
+
+.recommendation-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    border-color: #667eea;
 }
 
 /* 主要内容区域 */
 .main-content {
-    background: #fbfefb;
-    padding: 20px 0;
-    min-height: 600px;
+    padding: 40px 0;
 }
 
-/* 导航区块样式 */
 .nav-section {
+    background: rgba(255, 255, 255, 0.9);
     margin-bottom: 30px;
-    border-bottom: 1px solid #e8f5e8;
-    padding-bottom: 20px;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
 }
 
-.nav-section:last-child {
-    border-bottom: none;
-    margin-bottom: 0;
+.nav-section:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
 }
 
-/* 区块标题 */
 .section-title {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 15px;
-    font-size: 16px;
-    font-weight: bold;
-    color: #2c3e50;
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 3px solid #a8edea;
 }
 
 .title-text {
-    position: relative;
-}
-
-.title-text::before {
-    content: '';
-    position: absolute;
-    left: -10px;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 3px;
-    height: 16px;
-    background: #4285f4;
-    border-radius: 2px;
+    font-size: 28px;
+    font-weight: 700;
+    color: #2c3e50;
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
 .more-link {
-    color: #666;
+    color: #667eea;
     text-decoration: none;
-    font-size: 12px;
-    font-weight: normal;
+    font-weight: 600;
+    font-size: 16px;
+    padding: 8px 16px;
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: 1px solid transparent;
 }
 
 .more-link:hover {
-    color: #2e7d2e;
-    text-decoration: underline;
+    background: rgba(102, 126, 234, 0.1);
+    border-color: rgba(102, 126, 234, 0.3);
+    transform: translateX(5px);
 }
 
-/* 链接网格布局 */
+/* 科室筛选器 */
+.department-filter {
+    margin: 20px 0;
+    overflow: hidden;
+}
+
+.filter-scroll {
+    display: flex;
+    gap: 10px;
+    overflow-x: auto;
+    padding: 10px 0;
+    scrollbar-width: thin;
+    scrollbar-color: #667eea transparent;
+}
+
+.filter-scroll::-webkit-scrollbar {
+    height: 6px;
+}
+
+.filter-scroll::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.filter-scroll::-webkit-scrollbar-thumb {
+    background: #667eea;
+    border-radius: 3px;
+}
+
+.filter-btn {
+    background: rgba(102, 126, 234, 0.1);
+    border: 1px solid rgba(102, 126, 234, 0.3);
+    color: #667eea;
+    padding: 8px 16px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    white-space: nowrap;
+    transition: all 0.3s ease;
+}
+
+.filter-btn:hover,
+.filter-btn.active {
+    background: #667eea;
+    color: white;
+    border-color: #667eea;
+    transform: translateY(-2px);
+}
+
+/* 链接网格 */
 .links-grid {
-    background: #f8fcf8;
-    border: 1px solid #e0f0e0;
-    border-radius: 4px;
-    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
 }
 
 .links-row {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 15px;
-    margin-bottom: 10px;
 }
 
-.links-row:last-child {
-    margin-bottom: 0;
-}
-
-/* 导航链接样式 */
 .nav-link {
     display: flex;
     align-items: center;
-    gap: 8px;
-    color: #333;
+    padding: 20px;
+    background: white;
+    border: 2px solid #e8f4f8;
+    border-radius: 12px;
     text-decoration: none;
-    padding: 8px 12px;
-    border-radius: 3px;
-    transition: all 0.3s;
-    background: #ffffff;
-    border: 1px solid #d0e8d0;
-    min-width: 140px;
-    font-size: 13px;
+    color: #2c3e50;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.nav-link::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+    transition: left 0.5s ease;
+}
+
+.nav-link:hover::before {
+    left: 100%;
 }
 
 .nav-link:hover {
-    background: #e8f5e8;
-    border-color: #2e7d2e;
-    color: #2e7d2e;
-    text-decoration: none;
-    transform: translateY(-1px);
-    box-shadow: 0 2px 4px rgba(46, 125, 46, 0.2);
+    transform: translateY(-8px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+    border-color: #a8edea;
 }
 
 .link-icon {
-    font-size: 16px;
-    flex-shrink: 0;
+    font-size: 24px;
+    margin-right: 15px;
+    min-width: 30px;
 }
 
 .link-text {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    font-weight: 600;
+    font-size: 16px;
+    flex: 1;
 }
 
-/* 底部样式 */
+/* 医院徽章 */
+.hospital-badge {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    font-size: 10px;
+    padding: 4px 8px;
+    border-radius: 10px;
+    font-weight: 600;
+}
+
+/* 底部信息 */
 .footer {
-    background: #2c3e50;
-    color: #ecf0f1;
-    padding: 30px 0;
-    margin-top: 40px;
+    background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+    color: white;
+    padding: 40px 0 20px;
+    margin-top: 50px;
 }
 
 .footer-content {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 30px;
+    margin-bottom: 20px;
 }
 
 .footer-section h4 {
-    color: #fff;
+    font-size: 18px;
+    font-weight: 600;
     margin-bottom: 15px;
-    font-size: 16px;
+    color: #a8edea;
 }
 
 .footer-section p {
-    font-size: 13px;
     line-height: 1.6;
-    color: #bdc3c7;
+    opacity: 0.9;
 }
 
 .footer-links {
@@ -253,15 +489,16 @@ body {
 }
 
 .footer-links a {
-    color: #bdc3c7;
+    color: white;
     text-decoration: none;
-    font-size: 13px;
-    transition: color 0.3s;
+    opacity: 0.8;
+    transition: all 0.3s ease;
 }
 
 .footer-links a:hover {
-    color: #2e7d2e;
-    text-decoration: underline;
+    opacity: 1;
+    color: #a8edea;
+    transform: translateX(5px);
 }
 
 /* 响应式设计 */
@@ -270,98 +507,67 @@ body {
         padding: 0 15px;
     }
     
-    .search-box input {
-        width: 280px;
+    .identity-content {
+        flex-direction: column;
+        text-align: center;
     }
     
-    .search-engines {
-        flex-wrap: wrap;
+    .identity-options {
+        justify-content: center;
+    }
+    
+    .site-logo {
+        font-size: 36px;
+    }
+    
+    .search-box {
+        flex-direction: column;
         gap: 10px;
+        padding: 15px;
+    }
+    
+    #searchInput {
+        text-align: center;
     }
     
     .links-row {
-        flex-direction: column;
-        gap: 8px;
+        grid-template-columns: 1fr;
     }
     
     .nav-link {
-        width: 100%;
+        padding: 15px;
+    }
+    
+    .filter-scroll {
         justify-content: flex-start;
     }
     
     .footer-content {
         grid-template-columns: 1fr;
-        gap: 20px;
-    }
-    
-    .site-logo {
-        font-size: 24px;
+        text-align: center;
     }
 }
 
 @media (max-width: 480px) {
-    .search-box {
-        flex-direction: column;
-        border-radius: 4px;
+    .site-logo {
+        font-size: 28px;
     }
     
-    .search-box input,
-    .search-box button {
-        width: 100%;
-        border-radius: 0;
+    .title-text {
+        font-size: 22px;
     }
     
-    .search-box input {
-        border: 1px solid #e0e0e0;
-        border-bottom: none;
+    .nav-section {
+        padding: 20px;
     }
     
-    .links-grid {
-        padding: 10px;
-    }
-    
-    .nav-link {
-        min-width: auto;
-        padding: 10px;
+    .identity-btn {
+        padding: 10px 15px;
+        font-size: 14px;
     }
 }
 
-/* 特殊区块颜色 */
-.nav-section:nth-child(1) .title-text::before {
-    background: #e74c3c; /* 医院新闻 - 红色 */
-}
-
-.nav-section:nth-child(2) .title-text::before {
-    background: #3498db; /* 大学新闻 - 蓝色 */
-}
-
-.nav-section:nth-child(3) .title-text::before {
-    background: #2ecc71; /* 院系新闻 - 绿色 */
-}
-
-.nav-section:nth-child(4) .title-text::before {
-    background: #9b59b6; /* 数据库 - 紫色 */
-}
-
-.nav-section:nth-child(5) .title-text::before {
-    background: #f39c12; /* 期刊 - 橙色 */
-}
-
-.nav-section:nth-child(6) .title-text::before {
-    background: #1abc9c; /* 工具 - 青色 */
-}
-
-/* 链接图标颜色 */
-.nav-link .link-icon {
-    filter: grayscale(20%);
-    transition: filter 0.3s;
-}
-
-.nav-link:hover .link-icon {
-    filter: none;
-}
-
-/* 加载动画 */
+/* 动画效果 */
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -373,24 +579,56 @@ body {
     }
 }
 
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
 .nav-section {
     animation: fadeIn 0.6s ease-out;
 }
 
-/* 滚动条样式 */
-::-webkit-scrollbar {
-    width: 8px;
+.nav-link {
+    animation: slideIn 0.4s ease-out;
 }
 
-::-webkit-scrollbar-track {
-    background: #f1f1f1;
+/* 无障碍设计 */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
 }
 
-::-webkit-scrollbar-thumb {
-    background: #c1c1c1;
-    border-radius: 4px;
+/* 高对比度模式 */
+@media (prefers-contrast: high) {
+    .nav-link {
+        border-width: 3px;
+    }
+    
+    .identity-btn {
+        border-width: 3px;
+    }
 }
 
-::-webkit-scrollbar-thumb:hover {
-    background: #a8a8a8;
+/* 打印样式 */
+@media print {
+    .user-identity-banner,
+    .search-section,
+    .footer {
+        display: none;
+    }
+    
+    .nav-section {
+        break-inside: avoid;
+        box-shadow: none;
+        border: 1px solid #ccc;
+    }
 } 
