@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="生物医学导航网站 - 世界顶级医院、大学新闻，生物医学资源导航">
-    <meta name="keywords" content="生物医学,医院新闻,大学新闻,生物系,医学系,健康系,生物计算,PubMed,NCBI">
+    <meta name="description" content="生物医学导航网站 - 华南专科医院排行榜，世界顶级医院、大学新闻，生物医学资源导航">
+    <meta name="keywords" content="华南专科医院,医院排行榜,生物医学,医院新闻,大学新闻,生物系,医学系,健康系,生物计算,PubMed,NCBI">
     <meta name="author" content="BioMed Navigator">
-    <title>生物医学导航 - 世界顶级医院大学新闻导航</title>
+    <title>生物医学导航 - 华南专科医院排行榜与世界顶级医学资源</title>
     
     <!-- Custom CSS -->
     <link rel="stylesheet" href="css/style.css">
@@ -18,57 +18,19 @@
     <meta name="google-adsense-account" content="ca-pub-XXXXXXXXXXXXXXXXX">
 </head>
 <body>
-    <!-- 用户身份选择横幅 -->
-    <div class="user-identity-banner" id="identityBanner">
-        <div class="container">
-            <div class="identity-content">
-                <div class="identity-text">
-                    <h3>👋 欢迎来到生物医学导航</h3>
-                    <p>选择您的身份，获得个性化的资源推荐</p>
-                </div>
-                <div class="identity-options">
-                    <button class="identity-btn" data-identity="student">
-                        <span class="identity-icon">🎓</span>
-                        <span class="identity-label">学生</span>
-                    </button>
-                    <button class="identity-btn" data-identity="researcher">
-                        <span class="identity-icon">🔬</span>
-                        <span class="identity-label">研究员</span>
-                    </button>
-                    <button class="identity-btn" data-identity="enthusiast">
-                        <span class="identity-icon">💡</span>
-                        <span class="identity-label">爱好者</span>
-                    </button>
-                    <button class="identity-btn" data-identity="patient">
-                        <span class="identity-icon">🏥</span>
-                        <span class="identity-label">患者</span>
-                    </button>
-                </div>
-                <button class="close-banner" id="closeBanner">×</button>
-            </div>
-        </div>
-    </div>
-
     <!-- 顶部搜索区域 -->
     <div class="top-section">
         <div class="container">
             <!-- Logo区域 -->
             <div class="logo-section">
                 <h1 class="site-logo">生物医学导航</h1>
-                <p class="site-tagline">您的专业生物医学资源入口</p>
-                <div class="current-identity" id="currentIdentity" style="display: none;">
-                    <span class="identity-indicator">
-                        <span class="identity-icon-current"></span>
-                        <span class="identity-text-current"></span>
-                    </span>
-                    <button class="change-identity-btn" id="changeIdentity">切换身份</button>
-                </div>
+                <p class="site-tagline">华南专科医院排行榜 & 全球生物医学资源入口</p>
             </div>
             
             <!-- 搜索框 -->
             <div class="search-section">
                 <div class="search-box">
-                    <input type="text" id="searchInput" placeholder="搜索生物医学资源、医院、大学..." />
+                    <input type="text" id="searchInput" placeholder="搜索医院、科室、生物医学资源..." />
                     <button type="button" id="voiceSearchBtn" class="voice-search-btn" title="语音搜索">🎤</button>
                     <button type="button" id="searchBtn">搜索</button>
                 </div>
@@ -82,26 +44,46 @@
         </div>
     </div>
 
-    <!-- 个性化推荐区域 -->
-    <div class="personalized-section" id="personalizedSection" style="display: none;">
-        <div class="container">
-            <h2 class="section-title">
-                <span class="title-text">为您推荐</span>
-            </h2>
-            <div class="recommendation-grid" id="recommendationGrid">
-                <!-- 动态生成推荐内容 -->
-            </div>
-        </div>
-    </div>
-
     <!-- 主要导航内容区域 -->
     <div class="main-content">
         <div class="container">
             
-            <!-- 医院新闻区块 -->
+            <!-- 华南专科医院排行榜区块 - 第一位 -->
+            <div class="nav-section" id="hospitalRankingSection">
+                <h2 class="section-title">
+                    <span class="title-text">🏥 华南专科医院排行榜</span>
+                    <div class="section-controls">
+                        <button class="view-toggle-btn" id="viewToggleBtn">切换视图</button>
+                        <a href="#" class="more-link" id="hospitalMoreLink">查看详情 &gt;</a>
+                    </div>
+                </h2>
+                
+                <!-- 科室快速筛选 -->
+                <div class="department-filter" id="departmentFilter">
+                    <div class="filter-scroll">
+                        <button class="filter-btn active" data-department="all">全部科室</button>
+                        <button class="filter-btn" data-department="心血管">心血管</button>
+                        <button class="filter-btn" data-department="肿瘤学">肿瘤学</button>
+                        <button class="filter-btn" data-department="神经外科">神经外科</button>
+                        <button class="filter-btn" data-department="骨科">骨科</button>
+                        <button class="filter-btn" data-department="呼吸科">呼吸科</button>
+                        <button class="filter-btn" data-department="消化病">消化病</button>
+                        <button class="filter-btn" data-department="泌尿外科">泌尿外科</button>
+                        <button class="filter-btn" data-department="眼科">眼科</button>
+                        <button class="filter-btn" data-department="妇产科">妇产科</button>
+                    </div>
+                </div>
+                
+                <!-- 医院展示区域 -->
+                <div class="hospital-display-area" id="hospitalDisplayArea">
+                    <!-- 动态生成医院内容 -->
+                </div>
+            </div>
+
+            <!-- 世界顶级医院新闻区块 -->
             <div class="nav-section">
                 <h2 class="section-title">
-                    <span class="title-text">世界顶级医院新闻</span>
+                    <span class="title-text">🌍 世界顶级医院新闻</span>
                     <a href="#" class="more-link">更多 &gt;</a>
                 </h2>
                 <div class="links-grid">
@@ -152,89 +134,10 @@
                 </div>
             </div>
 
-            <!-- 华南专科医院排行榜区块 -->
-            <div class="nav-section">
-                <h2 class="section-title">
-                    <span class="title-text">华南专科医院排行榜</span>
-                    <a href="#" class="more-link">更多 &gt;</a>
-                </h2>
-                
-                <!-- 科室快速筛选 -->
-                <div class="department-filter" id="departmentFilter">
-                    <div class="filter-scroll">
-                        <button class="filter-btn active" data-department="all">全部</button>
-                        <button class="filter-btn" data-department="心血管">心血管</button>
-                        <button class="filter-btn" data-department="肿瘤学">肿瘤学</button>
-                        <button class="filter-btn" data-department="神经外科">神经外科</button>
-                        <button class="filter-btn" data-department="骨科">骨科</button>
-                        <button class="filter-btn" data-department="呼吸科">呼吸科</button>
-                        <button class="filter-btn" data-department="消化病">消化病</button>
-                        <button class="filter-btn" data-department="泌尿外科">泌尿外科</button>
-                    </div>
-                </div>
-                
-                <div class="links-grid" id="hospitalLinksGrid">
-                    <div class="links-row">
-                        <a href="https://www.nfyy.com/" target="_blank" class="nav-link">
-                            <span class="link-icon">🏥</span>
-                            <span class="link-text">南方医科大学南方医院</span>
-                            <span class="hospital-badge">综合排名高</span>
-                        </a>
-                        <a href="https://www.gzsums.net/" target="_blank" class="nav-link">
-                            <span class="link-icon">🏥</span>
-                            <span class="link-text">中山大学附属第一医院</span>
-                            <span class="hospital-badge">多科室第一</span>
-                        </a>
-                        <a href="https://www.sysucc.org.cn/" target="_blank" class="nav-link">
-                            <span class="link-icon">🏥</span>
-                            <span class="link-text">中山大学肿瘤防治中心</span>
-                            <span class="hospital-badge">肿瘤专科第一</span>
-                        </a>
-                        <a href="https://www.gdghospital.org.cn/" target="_blank" class="nav-link">
-                            <span class="link-icon">🏥</span>
-                            <span class="link-text">广东省人民医院</span>
-                            <span class="hospital-badge">心血管第一</span>
-                        </a>
-                        <a href="https://www.gxmuyfy.cn/" target="_blank" class="nav-link">
-                            <span class="link-icon">🏥</span>
-                            <span class="link-text">广西医科大学第一附属医院</span>
-                            <span class="hospital-badge">广西领先</span>
-                        </a>
-                    </div>
-                    <div class="links-row">
-                        <a href="https://www.zssy.com.cn/" target="_blank" class="nav-link">
-                            <span class="link-icon">🏥</span>
-                            <span class="link-text">中山大学附属第三医院</span>
-                            <span class="hospital-badge">风湿病第一</span>
-                        </a>
-                        <a href="https://www.syshospital.com/" target="_blank" class="nav-link">
-                            <span class="link-icon">🏥</span>
-                            <span class="link-text">中山大学孙逸仙纪念医院</span>
-                            <span class="hospital-badge">泌尿外科第一</span>
-                        </a>
-                        <a href="https://www.gyfyy.com/" target="_blank" class="nav-link">
-                            <span class="link-icon">🏥</span>
-                            <span class="link-text">广州医科大学附属第一医院</span>
-                            <span class="hospital-badge">呼吸科第一</span>
-                        </a>
-                        <a href="https://www.szhospital.com/" target="_blank" class="nav-link">
-                            <span class="link-icon">🏥</span>
-                            <span class="link-text">深圳市人民医院</span>
-                            <span class="hospital-badge">深圳领先</span>
-                        </a>
-                        <a href="https://www.phhp.com.cn/" target="_blank" class="nav-link">
-                            <span class="link-icon">🏥</span>
-                            <span class="link-text">海南省人民医院</span>
-                            <span class="hospital-badge">海南领先</span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-
             <!-- 世界顶级大学新闻区块 -->
             <div class="nav-section">
                 <h2 class="section-title">
-                    <span class="title-text">世界顶级大学新闻</span>
+                    <span class="title-text">🎓 世界顶级大学新闻</span>
                     <a href="#" class="more-link">更多 &gt;</a>
                 </h2>
                 <div class="links-grid">
@@ -288,7 +191,7 @@
             <!-- 生物医学院系新闻区块 -->
             <div class="nav-section">
                 <h2 class="section-title">
-                    <span class="title-text">生物医学院系新闻</span>
+                    <span class="title-text">🧬 生物医学院系新闻</span>
                     <a href="#" class="more-link">更多 &gt;</a>
                 </h2>
                 <div class="links-grid">
@@ -342,7 +245,7 @@
             <!-- 生物医学数据库区块 -->
             <div class="nav-section">
                 <h2 class="section-title">
-                    <span class="title-text">生物医学数据库</span>
+                    <span class="title-text">📚 生物医学数据库</span>
                     <a href="#" class="more-link">更多 &gt;</a>
                 </h2>
                 <div class="links-grid">
@@ -396,7 +299,7 @@
             <!-- 医学期刊区块 -->
             <div class="nav-section">
                 <h2 class="section-title">
-                    <span class="title-text">顶级医学期刊</span>
+                    <span class="title-text">📰 顶级医学期刊</span>
                     <a href="#" class="more-link">更多 &gt;</a>
                 </h2>
                 <div class="links-grid">
@@ -450,7 +353,7 @@
             <!-- 生物信息学工具区块 -->
             <div class="nav-section">
                 <h2 class="section-title">
-                    <span class="title-text">生物信息学工具</span>
+                    <span class="title-text">💻 生物信息学工具</span>
                     <a href="#" class="more-link">更多 &gt;</a>
                 </h2>
                 <div class="links-grid">
