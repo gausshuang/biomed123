@@ -277,15 +277,25 @@ body {
     margin-bottom: 8px;
 }
 
+.hospital-location {
+    font-size: 13px;
+    color: #7f8c8d;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
 .hospital-url {
     font-size: 12px;
     color: #7f8c8d;
     text-decoration: none;
     border: 1px solid #e8f4f8;
-    padding: 4px 8px;
-    border-radius: 10px;
+    padding: 6px 12px;
+    border-radius: 15px;
     display: inline-block;
     transition: all 0.3s ease;
+    font-weight: 500;
 }
 
 .hospital-url:hover {

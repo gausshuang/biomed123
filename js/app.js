@@ -34,13 +34,27 @@ class BioMedNavigator {
     // 加载医院排行榜数据
     async loadHospitalData() {
         try {
+            // 尝试加载完整的医院数据
+            const response = await fetch('complete_hospitals_data.json');
+            if (response.ok) {
+                const jsonData = await response.text();
+                this.hospitalData = JSON.parse(jsonData);
+                console.log('完整医院数据加载成功:', Object.keys(this.hospitalData).length, '个科室');
+                return;
+            }
+        } catch (error) {
+            console.log('无法加载完整医院数据，尝试备用数据源:', error);
+        }
+        
+        try {
+            // 备用：尝试加载华南区数据
             const response = await fetch('华南专科医院排行榜.csv');
             const csvText = await response.text();
             this.hospitalData = this.parseCSV(csvText);
-            console.log('医院数据加载成功:', this.hospitalData);
+            console.log('华南区医院数据加载成功:', this.hospitalData);
         } catch (error) {
             console.error('无法加载医院数据:', error);
-            // 使用内置数据作为备用
+            // 使用内置数据作为最后备用
             this.hospitalData = this.getBackupHospitalData();
         }
     }
@@ -224,7 +238,7 @@ class BioMedNavigator {
     // 创建医院卡片
     createHospitalCard(hospital, department) {
         const card = document.createElement('div');
-        const isRanked = hospital.rank !== '获提名医院';
+        const isRanked = hospital.rank !== '获提名医院' && hospital.rank !== '获提名';
         const rankNum = isRanked ? parseInt(hospital.rank) : 0;
         
         card.className = 'hospital-card';
@@ -257,22 +271,53 @@ class BioMedNavigator {
         hospitalDepartment.className = 'hospital-department';
         hospitalDepartment.textContent = `${department}专科`;
 
+        // 地理位置信息
+        const locationInfo = document.createElement('div');
+        locationInfo.className = 'hospital-location';
+        let locationText = '';
+        
+        if (hospital.region) {
+            locationText += hospital.region;
+        }
+        if (hospital.province && hospital.province !== hospital.region) {
+            locationText += (locationText ? ' · ' : '') + hospital.province;
+        }
+        if (hospital.city && hospital.city !== hospital.province) {
+            locationText += (locationText ? ' · ' : '') + hospital.city;
+        }
+        
+        if (locationText) {
+            locationInfo.textContent = `📍 ${locationText}`;
+        } else {
+            locationInfo.textContent = '📍 位置信息待完善';
+            locationInfo.style.color = '#999';
+        }
+
         // 官网链接
         const hospitalUrl = document.createElement('a');
         hospitalUrl.className = 'hospital-url';
-        hospitalUrl.href = hospital.url || '#';
-        hospitalUrl.target = '_blank';
-        hospitalUrl.textContent = hospital.url ? '访问官网' : '暂无官网';
         
-        if (hospital.url) {
+        if (hospital.url && hospital.url.trim() && hospital.url !== 'nan') {
+            hospitalUrl.href = hospital.url;
+            hospitalUrl.target = '_blank';
+            hospitalUrl.textContent = '🌐 访问官网';
             hospitalUrl.addEventListener('click', () => {
                 this.trackLinkClick(hospital.hospital, hospital.url);
+            });
+        } else {
+            hospitalUrl.href = '#';
+            hospitalUrl.textContent = '🌐 暂无官网';
+            hospitalUrl.style.color = '#999';
+            hospitalUrl.style.cursor = 'not-allowed';
+            hospitalUrl.addEventListener('click', (e) => {
+                e.preventDefault();
             });
         }
 
         card.appendChild(rankBadge);
         card.appendChild(hospitalName);
         card.appendChild(hospitalDepartment);
+        card.appendChild(locationInfo);
         card.appendChild(hospitalUrl);
 
         return card;
