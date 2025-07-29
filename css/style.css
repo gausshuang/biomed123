@@ -335,9 +335,10 @@ body {
 
 .filter-scroll {
     display: flex;
+    align-items: center;
     gap: 10px;
     overflow-x: auto;
-    padding: 10px 0;
+    padding: 15px 0;
     scrollbar-width: thin;
     scrollbar-color: #667eea transparent;
 }
@@ -366,6 +367,9 @@ body {
     font-weight: 500;
     white-space: nowrap;
     transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 5px;
 }
 
 .filter-btn:hover,
@@ -374,6 +378,20 @@ body {
     color: white;
     border-color: #667eea;
     transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
+.region-filter {
+    background: rgba(168, 237, 234, 0.1);
+    border-color: rgba(168, 237, 234, 0.5);
+    color: #2c7873;
+}
+
+.region-filter:hover,
+.region-filter.active {
+    background: #a8edea;
+    color: #2c3e50;
+    border-color: #a8edea;
 }
 
 /* 链接网格 */

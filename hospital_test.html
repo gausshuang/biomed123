@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>医院数据测试页面</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .hospital-card { border: 1px solid #ccc; margin: 10px 0; padding: 15px; border-radius: 5px; }
+        .hospital-name { font-weight: bold; font-size: 16px; }
+        .hospital-info { color: #666; margin: 5px 0; }
+        .hospital-url { color: #0066cc; text-decoration: none; }
+        .hospital-url:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <h1>医院数据测试页面</h1>
+    <div id="hospital-list"></div>
+    
+    <script>
+        async function loadHospitalData() {
+            try {
+                const response = await fetch('complete_hospitals_data.json');
+                const data = await response.json();
+                
+                const container = document.getElementById('hospital-list');
+                let totalHospitals = 0;
+                
+                for (const [dept, hospitals] of Object.entries(data)) {
+                    totalHospitals += hospitals.length;
+                    
+                    // 只显示每个科室的前3个医院作为示例
+                    const sampleHospitals = hospitals.slice(0, 3);
+                    
+                    for (const hospital of sampleHospitals) {
+                        const card = document.createElement('div');
+                        card.className = 'hospital-card';
+                        
+                        card.innerHTML = `
+                            <div class="hospital-name">${hospital.hospital}</div>
+                            <div class="hospital-info">科室: ${dept} | 排名: ${hospital.rank}</div>
+                            <div class="hospital-info">地区: ${hospital.region || '未知'} | 省份: ${hospital.province || '未知'} | 城市: ${hospital.city || '未知'}</div>
+                            <div class="hospital-info">
+                                ${hospital.url ? `<a href="${hospital.url}" target="_blank" class="hospital-url">访问官网</a>` : '暂无官网'}
+                            </div>
+                        `;
+                        
+                        container.appendChild(card);
+                    }
+                }
+                
+                document.querySelector('h1').textContent = `医院数据测试页面 (总计 ${totalHospitals} 个医院)`;
+                
+            } catch (error) {
+                console.error('加载医院数据失败:', error);
+                document.getElementById('hospital-list').innerHTML = '<p style="color: red;">数据加载失败: ' + error.message + '</p>';
+            }
+        }
+        
+        loadHospitalData();
+    </script>
+</body>
+</html>

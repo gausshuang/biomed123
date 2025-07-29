@@ -6,6 +6,7 @@ class BioMedNavigator {
         this.hospitalData = null;
         this.currentView = 'department'; // 'department' 或 'list'
         this.currentFilter = 'all';
+        this.currentRegionFilter = 'all'; // 新增：地区筛选
         this.init();
     }
 
@@ -133,19 +134,104 @@ class BioMedNavigator {
         this.showMessage(`已切换到${this.currentView === 'department' ? '科室' : '列表'}视图`, 'info');
     }
 
-    // 设置科室筛选功能
+    // 设置科室筛选器
     setupDepartmentFilter() {
-        const filterBtns = document.querySelectorAll('.filter-btn');
+        const container = document.querySelector('.department-filter .filter-scroll');
+        if (!container) return;
 
-        filterBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                // 更新按钮状态
-                filterBtns.forEach(b => b.classList.remove('active'));
+        // 科室筛选按钮
+        const departments = [
+            { key: 'all', name: '全部科室', icon: '🏥' },
+            { key: '病理科', name: '病理科', icon: '🔬' },
+            { key: '耳鼻喉科', name: '耳鼻喉科', icon: '👂' },
+            { key: '妇产科', name: '妇产科', icon: '👶' },
+            { key: '骨科', name: '骨科', icon: '🦴' },
+            { key: '呼吸科', name: '呼吸科', icon: '🫁' },
+            { key: '神经内科', name: '神经内科', icon: '🧠' },
+            { key: '神经外科', name: '神经外科', icon: '⚕️' },
+            { key: '肿瘤学', name: '肿瘤学', icon: '🎗️' },
+            { key: '泌尿外科', name: '泌尿外科', icon: '💊' },
+            { key: '超声医学', name: '超声医学', icon: '📡' }
+        ];
+
+        // 地区筛选按钮
+        const regions = [
+            { key: 'all', name: '全部地区', icon: '🇨🇳' },
+            { key: '华东区', name: '华东区', icon: '🌅' },
+            { key: '华北区', name: '华北区', icon: '🏔️' },
+            { key: '华南区', name: '华南区', icon: '🌴' },
+            { key: '西南区', name: '西南区', icon: '🏔️' },
+            { key: '华中区', name: '华中区', icon: '🌾' },
+            { key: '西北区', name: '西北区', icon: '🏜️' },
+            { key: '东北区', name: '东北区', icon: '❄️' }
+        ];
+
+        // 清空容器
+        container.innerHTML = '';
+
+        // 添加地区筛选标题
+        const regionTitle = document.createElement('div');
+        regionTitle.style.cssText = 'font-weight: bold; margin-right: 15px; color: #667eea; white-space: nowrap;';
+        regionTitle.textContent = '按地区筛选:';
+        container.appendChild(regionTitle);
+
+        // 添加地区筛选按钮
+        regions.forEach(region => {
+            const btn = document.createElement('button');
+            btn.className = 'filter-btn region-filter';
+            btn.dataset.region = region.key;
+            btn.innerHTML = `${region.icon} ${region.name}`;
+            
+            if (region.key === 'all') {
                 btn.classList.add('active');
-
-                this.currentFilter = btn.dataset.department;
+            }
+            
+            btn.addEventListener('click', () => {
+                // 移除其他地区按钮的active状态
+                container.querySelectorAll('.region-filter').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                
+                // 设置地区筛选
+                this.currentRegionFilter = region.key;
                 this.displayHospitalData();
             });
+            
+            container.appendChild(btn);
+        });
+
+        // 添加分隔符
+        const separator = document.createElement('div');
+        separator.style.cssText = 'width: 2px; height: 30px; background: #ddd; margin: 0 15px;';
+        container.appendChild(separator);
+
+        // 添加科室筛选标题
+        const deptTitle = document.createElement('div');
+        deptTitle.style.cssText = 'font-weight: bold; margin-right: 15px; color: #667eea; white-space: nowrap;';
+        deptTitle.textContent = '按科室筛选:';
+        container.appendChild(deptTitle);
+
+        // 添加科室筛选按钮
+        departments.forEach(dept => {
+            const btn = document.createElement('button');
+            btn.className = 'filter-btn dept-filter';
+            btn.dataset.department = dept.key;
+            btn.innerHTML = `${dept.icon} ${dept.name}`;
+            
+            if (dept.key === 'all') {
+                btn.classList.add('active');
+            }
+            
+            btn.addEventListener('click', () => {
+                // 移除其他科室按钮的active状态
+                container.querySelectorAll('.dept-filter').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                
+                // 设置科室筛选
+                this.currentFilter = dept.key;
+                this.displayHospitalData();
+            });
+            
+            container.appendChild(btn);
         });
     }
 
@@ -165,40 +251,41 @@ class BioMedNavigator {
 
     // 按科室分组显示
     displayByDepartment(container) {
-        const departments = this.currentFilter === 'all' 
-            ? Object.keys(this.hospitalData) 
-            : Object.keys(this.hospitalData).filter(dept => 
-                dept.includes(this.currentFilter) || this.currentFilter === 'all'
-            );
+        const filteredData = this.getFilteredData();
+        
+        Object.keys(filteredData).forEach(department => {
+            const hospitals = filteredData[department];
+            if (hospitals.length === 0) return;
 
-        departments.forEach(department => {
-            const hospitals = this.hospitalData[department];
-            if (!hospitals || hospitals.length === 0) return;
-
+            // 创建科室分组
             const departmentGroup = document.createElement('div');
             departmentGroup.className = 'department-group';
 
-            const departmentTitle = document.createElement('h3');
+            // 科室标题
+            const departmentTitle = document.createElement('div');
             departmentTitle.className = 'department-title';
             departmentTitle.innerHTML = `
-                <span>${this.getDepartmentIcon(department)}</span>
-                <span>${department}</span>
+                ${this.getDepartmentIcon(department)} ${department}
             `;
 
+            // 科室统计
+            const rankedCount = hospitals.filter(h => h.rank !== '获提名' && h.rank !== '获提名医院').length;
+            const nominatedCount = hospitals.filter(h => h.rank === '获提名' || h.rank === '获提名医院').length;
+            
             const departmentStats = document.createElement('div');
             departmentStats.className = 'department-stats';
-            const rankedCount = hospitals.filter(h => h.rank !== '获提名医院').length;
-            const nominatedCount = hospitals.filter(h => h.rank === '获提名医院').length;
-            departmentStats.textContent = `排名医院 ${rankedCount} 家，获提名医院 ${nominatedCount} 家`;
+            departmentStats.textContent = `排名医院 ${rankedCount} 个，获提名医院 ${nominatedCount} 个`;
 
             departmentGroup.appendChild(departmentTitle);
             departmentGroup.appendChild(departmentStats);
 
             // 按排名排序
-            const sortedHospitals = [...hospitals].sort((a, b) => {
+            const sortedHospitals = hospitals.sort((a, b) => {
                 if (a.rank === '获提名医院' && b.rank !== '获提名医院') return 1;
                 if (a.rank !== '获提名医院' && b.rank === '获提名医院') return -1;
-                if (a.rank === '获提名医院' && b.rank === '获提名医院') return 0;
+                if (a.rank === '获提名' && b.rank !== '获提名') return 1;
+                if (a.rank !== '获提名' && b.rank === '获提名') return -1;
+                if ((a.rank === '获提名医院' || a.rank === '获提名') && (b.rank === '获提名医院' || b.rank === '获提名')) return 0;
                 return parseInt(a.rank) - parseInt(b.rank);
             });
 
@@ -213,17 +300,16 @@ class BioMedNavigator {
 
     // 按列表显示
     displayByList(container) {
+        const filteredData = this.getFilteredData();
         const allHospitals = [];
         
-        Object.keys(this.hospitalData).forEach(department => {
-            if (this.currentFilter === 'all' || department.includes(this.currentFilter)) {
-                this.hospitalData[department].forEach(hospital => {
-                    allHospitals.push({
-                        ...hospital,
-                        department: department
-                    });
+        Object.keys(filteredData).forEach(department => {
+            filteredData[department].forEach(hospital => {
+                allHospitals.push({
+                    ...hospital,
+                    department: department
                 });
-            }
+            });
         });
 
         // 按医院名称排序
@@ -233,6 +319,32 @@ class BioMedNavigator {
             const hospitalCard = this.createHospitalCard(hospital, hospital.department);
             container.appendChild(hospitalCard);
         });
+    }
+
+    // 获取筛选后的数据
+    getFilteredData() {
+        if (!this.hospitalData) return {};
+        
+        const filteredData = {};
+        
+        Object.keys(this.hospitalData).forEach(department => {
+            // 科室筛选
+            if (this.currentFilter !== 'all' && !department.includes(this.currentFilter)) {
+                return;
+            }
+            
+            // 地区筛选
+            const filteredHospitals = this.hospitalData[department].filter(hospital => {
+                if (this.currentRegionFilter === 'all') return true;
+                return hospital.region === this.currentRegionFilter;
+            });
+            
+            if (filteredHospitals.length > 0) {
+                filteredData[department] = filteredHospitals;
+            }
+        });
+        
+        return filteredData;
     }
 
     // 创建医院卡片
