@@ -3,49 +3,137 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="生物医学导航网站 - 全国医院专科排行榜，涵盖7大地区2683家医院，世界顶级医院、大学新闻，生物医学资源导航">
-    <meta name="keywords" content="全国医院排行榜,专科医院,生物医学,医院新闻,大学新闻,生物系,医学系,健康系,生物计算,PubMed,NCBI">
-    <meta name="author" content="BioMed Navigator">
-    <title>生物医学导航 - 全国医院专科排行榜与世界顶级医学资源</title>
+    
+    <!-- 基础SEO标签 -->
+    <meta name="description" content="专业的生物医学导航平台，提供全国医院专科排行榜查询，涵盖华东、华北、华南等7大地区2683家医院排名，集合世界顶级医院、大学新闻、生物医学数据库、期刊文献等资源导航服务。">
+    <meta name="keywords" content="生物医学导航,全国医院排行榜,专科医院排名,医院评级,PubMed,NCBI,生物医学数据库,医学期刊,生物信息学工具,医学文献检索,医学教育资源,临床试验,医学影像,药物信息">
+    <meta name="author" content="BioMed Navigator Team">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+    <meta name="googlebot" content="index, follow">
+    <meta name="language" content="zh-CN">
+    <meta name="geo.region" content="CN">
+    <meta name="geo.country" content="China">
+    
+    <!-- 页面标题 -->
+    <title>生物医学导航 - 全国医院专科排行榜查询与生物医学资源导航平台</title>
+    
+    <!-- Open Graph社交媒体优化 -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="生物医学导航 - 全国医院专科排行榜与生物医学资源导航">
+    <meta property="og:description" content="专业的生物医学导航平台，提供全国医院专科排行榜查询，涵盖华东、华北、华南等7大地区2683家医院排名，集合世界顶级生物医学资源。">
+    <meta property="og:url" content="https://gausshuang.github.io/biomed123/">
+    <meta property="og:site_name" content="生物医学导航">
+    <meta property="og:locale" content="zh_CN">
+    <meta property="og:image" content="https://gausshuang.github.io/biomed123/images/og-image.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="生物医学导航网站 - 医院排行榜与生物医学资源">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="生物医学导航 - 全国医院专科排行榜与生物医学资源导航">
+    <meta name="twitter:description" content="专业的生物医学导航平台，提供全国医院专科排行榜查询，涵盖华东、华北、华南等7大地区2683家医院排名。">
+    <meta name="twitter:image" content="https://gausshuang.github.io/biomed123/images/twitter-card.jpg">
+    <meta name="twitter:image:alt" content="生物医学导航网站截图">
+    
+    <!-- 规范化URL -->
+    <link rel="canonical" href="https://gausshuang.github.io/biomed123/">
+    
+    <!-- 结构化数据 -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "生物医学导航",
+        "alternateName": "BioMed Navigator",
+        "url": "https://gausshuang.github.io/biomed123/",
+        "description": "专业的生物医学导航平台，提供全国医院专科排行榜查询，涵盖华东、华北、华南等7大地区2683家医院排名，集合世界顶级生物医学资源。",
+        "potentialAction": {
+            "@type": "SearchAction",
+            "target": {
+                "@type": "EntryPoint",
+                "urlTemplate": "https://pubmed.ncbi.nlm.nih.gov/?term={search_term_string}"
+            },
+            "query-input": "required name=search_term_string"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "生物医学导航团队",
+            "url": "https://gausshuang.github.io/biomed123/"
+        },
+        "inLanguage": "zh-CN",
+        "copyrightYear": "2025",
+        "genre": ["医学", "生物学", "医院导航", "学术资源"],
+        "keywords": "生物医学导航,医院排行榜,PubMed,NCBI,医学数据库",
+        "audience": {
+            "@type": "Audience",
+            "audienceType": "医学研究者、医护人员、生物医学学生"
+        }
+    }
+    </script>
+    
+    <!-- 网站验证 -->
+    <meta name="google-site-verification" content="YOUR_GOOGLE_VERIFICATION_CODE">
+    <meta name="baidu-site-verification" content="YOUR_BAIDU_VERIFICATION_CODE">
+    <meta name="360-site-verification" content="YOUR_360_VERIFICATION_CODE">
+    
+    <!-- DNS预解析优化 -->
+    <link rel="dns-prefetch" href="//pubmed.ncbi.nlm.nih.gov">
+    <link rel="dns-prefetch" href="//scholar.google.com">
+    <link rel="dns-prefetch" href="//www.ncbi.nlm.nih.gov">
+    <link rel="dns-prefetch" href="//www.nature.com">
     
     <!-- Custom CSS -->
     <link rel="stylesheet" href="css/style.css">
     
-    <!-- Favicon -->
+    <!-- Favicon集合 -->
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="manifest" href="/site.webmanifest">
     
     <!-- Google Adsense准备 -->
     <meta name="google-adsense-account" content="ca-pub-XXXXXXXXXXXXXXXXX">
 </head>
 <body>
+    <!-- 跳转到主内容链接 - 无障碍功能 -->
+    <a href="#main-content" class="skip-link">跳转到主内容</a>
+    
     <!-- 顶部搜索区域 -->
     <div class="top-section">
         <div class="container">
             <!-- Logo区域 -->
             <div class="logo-section">
-                <h1 class="site-logo">生物医学导航</h1>
+                <h1 class="site-logo">
+                    <span role="img" aria-label="生物医学图标">🧬</span>
+                    生物医学导航
+                </h1>
                 <p class="site-tagline">全国医院专科排行榜 & 全球生物医学资源入口</p>
             </div>
             
             <!-- 搜索框 -->
             <div class="search-section">
                 <div class="search-box">
-                    <input type="text" id="searchInput" placeholder="搜索医院、科室、生物医学资源..." />
-                    <button type="button" id="voiceSearchBtn" class="voice-search-btn" title="语音搜索">🎤</button>
-                    <button type="button" id="searchBtn">搜索</button>
+                    <label for="searchInput" class="sr-only">搜索医院、科室或生物医学资源</label>
+                    <input type="text" id="searchInput" placeholder="搜索医院、科室、生物医学资源..." aria-label="搜索医院、科室或生物医学资源" />
+                    <button type="button" id="voiceSearchBtn" class="voice-search-btn" title="语音搜索" aria-label="开启语音搜索">
+                        <span role="img" aria-label="麦克风图标">🎤</span>
+                    </button>
+                    <button type="button" id="searchBtn" aria-label="执行搜索">搜索</button>
                 </div>
                 <div class="search-engines">
-                    <a href="https://pubmed.ncbi.nlm.nih.gov/" target="_blank">PubMed</a>
-                    <a href="https://scholar.google.com/" target="_blank">Google Scholar</a>
-                    <a href="https://www.ncbi.nlm.nih.gov/" target="_blank">NCBI</a>
-                    <a href="https://www.who.int/" target="_blank">WHO</a>
+                    <a href="https://pubmed.ncbi.nlm.nih.gov/" target="_blank" aria-label="访问PubMed生物医学文献数据库" title="PubMed - 生物医学文献数据库">PubMed</a>
+                    <a href="https://scholar.google.com/" target="_blank" aria-label="访问Google Scholar学术搜索" title="Google Scholar - 学术文献搜索引擎">Google Scholar</a>
+                    <a href="https://www.ncbi.nlm.nih.gov/" target="_blank" aria-label="访问NCBI生物技术信息中心" title="NCBI - 国家生物技术信息中心">NCBI</a>
+                    <a href="https://www.who.int/" target="_blank" aria-label="访问世界卫生组织官网" title="WHO - 世界卫生组织">WHO</a>
                 </div>
             </div>
         </div>
     </div>
 
     <!-- 主要导航内容区域 -->
-    <div class="main-content">
+    <main class="main-content" id="main-content" role="main">
         <div class="container">
             
             <!-- 全国医院专科排行榜区块 - 第一位 -->
@@ -79,8 +167,8 @@
                 </h2>
                 <div class="links-grid">
                     <div class="links-row">
-                        <a href="https://www.mayoclinic.org/news" target="_blank" class="nav-link">
-                            <span class="link-icon">🏥</span>
+                        <a href="https://www.mayoclinic.org/news" target="_blank" class="nav-link" aria-label="访问Mayo Clinic医院新闻">
+                            <span class="link-icon" role="img" aria-label="医院图标">🏥</span>
                             <span class="link-text">Mayo Clinic</span>
                         </a>
                         <a href="https://www.clevelandclinic.org/news" target="_blank" class="nav-link">
@@ -396,10 +484,10 @@
             </div>
 
         </div>
-    </div>
+    </main>
 
     <!-- 底部信息 -->
-    <div class="footer">
+    <footer class="footer" role="contentinfo">
         <div class="container">
             <div class="footer-content">
                 <div class="footer-section">
@@ -422,9 +510,55 @@
                 </div>
             </div>
         </div>
-    </div>
+    </footer>
 
     <!-- JavaScript -->
     <script src="js/app.js"></script>
+    <script src="seo-enhancements.js"></script>
+    
+    <!-- 隐藏屏幕阅读器专用样式 -->
+    <style>
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+        
+        /* 跳转到主内容链接 */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 6px;
+            background: #667eea;
+            color: white;
+            padding: 8px;
+            z-index: 10000;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+        
+        .skip-link:focus {
+            top: 6px;
+        }
+        
+        /* 改善焦点指示器 */
+        *:focus {
+            outline: 2px solid #667eea;
+            outline-offset: 2px;
+        }
+        
+        /* 确保颜色对比度符合WCAG标准 */
+        .nav-link:focus,
+        .nav-link:hover {
+            background-color: rgba(102, 126, 234, 0.1);
+        }
+    </style>
 </body>
 </html> 

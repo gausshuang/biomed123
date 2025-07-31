@@ -1,0 +1,103 @@
+{
+    "name": "生物医学导航",
+    "short_name": "BioMed导航",
+    "description": "专业的生物医学导航平台 - 全国医院专科排行榜与生物医学资源导航",
+    "lang": "zh-CN",
+    "dir": "ltr",
+    "start_url": "/biomed123/",
+    "scope": "/biomed123/",
+    "display": "standalone",
+    "theme_color": "#667eea",
+    "background_color": "#ffffff",
+    "orientation": "portrait-primary",
+    "categories": ["education", "medical", "reference", "science"],
+    "icons": [
+        {
+            "src": "https://gausshuang.github.io/biomed123/favicon-16x16.png",
+            "sizes": "16x16",
+            "type": "image/png",
+            "purpose": "any maskable"
+        },
+        {
+            "src": "/biomed123/favicon-32x32.png",
+            "sizes": "32x32",
+            "type": "image/png",
+            "purpose": "any maskable"
+        },
+        {
+            "src": "https://gausshuang.github.io/biomed123/apple-touch-icon.png",
+            "sizes": "180x180",
+            "type": "image/png",
+            "purpose": "any maskable"
+        },
+        {
+            "src": "https://gausshuang.github.io/biomed123/android-chrome-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "any maskable"
+        },
+        {
+            "src": "https://gausshuang.github.io/biomed123/android-chrome-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "any maskable"
+        }
+    ],
+    "screenshots": [
+        {
+            "src": "https://gausshuang.github.io/biomed123/images/screenshot-desktop.png",
+            "sizes": "1280x720",
+            "type": "image/png",
+            "form_factor": "wide",
+            "label": "生物医学导航桌面端截图"
+        },
+        {
+            "src": "https://gausshuang.github.io/biomed123/images/screenshot-mobile.png",
+            "sizes": "375x667",
+            "type": "image/png",
+            "form_factor": "narrow",
+            "label": "生物医学导航移动端截图"
+        }
+    ],
+    "shortcuts": [
+        {
+            "name": "医院排行榜",
+            "short_name": "医院排行",
+            "description": "查看全国医院专科排行榜",
+            "url": "https://gausshuang.github.io/biomed123/#hospital-ranking",
+            "icons": [
+                {
+                    "src": "https://gausshuang.github.io/biomed123/favicon-32x32.png",
+                    "sizes": "32x32",
+                    "type": "image/png"
+                }
+            ]
+        },
+        {
+            "name": "PubMed搜索",
+            "short_name": "PubMed",
+            "description": "快速访问PubMed数据库",
+            "url": "https://pubmed.ncbi.nlm.nih.gov/",
+            "icons": [
+                {
+                    "src": "https://gausshuang.github.io/biomed123/favicon-32x32.png",
+                    "sizes": "32x32",
+                    "type": "image/png"
+                }
+            ]
+        },
+        {
+            "name": "生物医学数据库",
+            "short_name": "数据库",
+            "description": "访问生物医学相关数据库",
+            "url": "https://gausshuang.github.io/biomed123/#biomedical-databases",
+            "icons": [
+                {
+                    "src": "https://gausshuang.github.io/biomed123/favicon-32x32.png",
+                    "sizes": "32x32",
+                    "type": "image/png"
+                }
+            ]
+        }
+    ]
+}
